@@ -1,1 +1,2 @@
 # AnyParry
+A mod that lets you set custom parry flash images. Based off the Forrbidenparry mod by doomahreal which is based off of SoggyFlash mod by fri which is based off of the I_WONt_SUGARCOAT_IT mod by Graze.
