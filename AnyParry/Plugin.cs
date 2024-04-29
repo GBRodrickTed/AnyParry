@@ -14,6 +14,7 @@ using PluginConfig.API;
 using PluginConfig.API.Functionals;
 using UnityEngine.EventSystems;
 using System.Xml.Serialization;
+using static AnyParry.ConfigManager;
 
 namespace AnyParry
 {
@@ -22,8 +23,15 @@ namespace AnyParry
         private static PluginConfigurator config;
         private static ButtonField openParryFolder;
         private static ButtonField refresh;
+        public static EnumField<FilterType> filterType;
         static string workingDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         static string iconFilePath = Path.Combine(Path.Combine(workingDirectory, "Data"), "icon.png");
+        public enum FilterType
+        {
+            Point = FilterMode.Point,
+            Bilinear = FilterMode.Bilinear,
+            Trilinear = FilterMode.Trilinear
+        }
         public static void Setup()
         {
             config = PluginConfigurator.Create(PluginInfo.Name, PluginInfo.GUID);
@@ -31,8 +39,12 @@ namespace AnyParry
             openParryFolder.onClick += new ButtonField.OnClick(OpenFolder);
             refresh = new ButtonField(config.rootPanel, "Refresh Parry Images", "button.refresh");
             refresh.onClick += new ButtonField.OnClick(Plugin.UpdateParryList);
+            filterType = new EnumField<FilterType>(config.rootPanel, "Texture Filtering Mode", "field.filter", FilterType.Point, true);
 
-            
+            filterType.onValueChange += (e) =>
+            {
+                Plugin.UpdateParryList();
+            };
             ConfigManager.config.SetIconWithURL("file://" + iconFilePath);
         }
         public static void OpenFolder()
@@ -68,7 +80,7 @@ namespace AnyParry
                         Debug.Log(file);
                         byte[] data = File.ReadAllBytes(file);
                         Texture2D parryTex = new Texture2D(0, 0, TextureFormat.RGBA32, false);
-                        parryTex.filterMode = FilterMode.Point;
+                        parryTex.filterMode = (FilterMode)filterType.value;
                         parryTex.LoadImage(data);
                         Sprite parrySprite = Sprite.Create(parryTex, new Rect(0, 0, parryTex.width, parryTex.height), new Vector2(0.5f, 0.5f));
                         parrySprites.Add(parrySprite);
@@ -82,7 +94,7 @@ namespace AnyParry
         {
             [HarmonyPatch(typeof(TimeController), "ParryFlash")]
             [HarmonyPostfix]
-            private static void MakeSoggy(TimeController __instance)
+            private static void SetParryImage(TimeController __instance)
             {
                 if (parrySprites.Count < 1)
                 {
