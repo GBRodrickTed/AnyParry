@@ -8,17 +8,17 @@ using System.IO;
 using UnityEngine.Diagnostics;
 using System.Reflection;
 using HarmonyLib;
-using PluginConfig;
+/*using PluginConfig;
 using PluginConfig.API.Fields;
 using PluginConfig.API;
-using PluginConfig.API.Functionals;
+using PluginConfig.API.Functionals;*/
 using UnityEngine.EventSystems;
 using System.Xml.Serialization;
-using static AnyParry.ConfigManager;
+//using static AnyParry.ConfigManager;
 
 namespace AnyParry
 {
-    public static class ConfigManager
+    /*public static class ConfigManager
     {
         private static PluginConfigurator config;
         private static ButtonField openParryFolder;
@@ -51,18 +51,18 @@ namespace AnyParry
         {
             Application.OpenURL(Path.Combine(workingDirectory, "ParryImages"));
         }
-    }
+    }*/
     [BepInPlugin(PluginInfo.GUID, PluginInfo.Name, PluginInfo.Version)]
-    [BepInDependency(PluginConfiguratorController.PLUGIN_GUID)]
     public class Plugin : BaseUnityPlugin
     {
         public static List<string> imageTypes = new List<string> {".jpeg", ".jpg", ".png", ".bmp"};
         public static List<Sprite> parrySprites = new List<Sprite>();
         public static string ModDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         public Harmony harm;
+        public static FilterMode filterType = FilterMode.Point;
         public void Start()
         {
-            ConfigManager.Setup();
+            //ConfigManager.Setup();
             UpdateParryList();
             harm = new Harmony(PluginInfo.GUID);
             harm.PatchAll(typeof(PatchDude));
@@ -80,7 +80,7 @@ namespace AnyParry
                         Debug.Log(file);
                         byte[] data = File.ReadAllBytes(file);
                         Texture2D parryTex = new Texture2D(0, 0, TextureFormat.RGBA32, false);
-                        parryTex.filterMode = (FilterMode)filterType.value;
+                        parryTex.filterMode = (FilterMode)filterType;
                         parryTex.LoadImage(data);
                         Sprite parrySprite = Sprite.Create(parryTex, new Rect(0, 0, parryTex.width, parryTex.height), new Vector2(0.5f, 0.5f));
                         parrySprites.Add(parrySprite);
@@ -92,7 +92,7 @@ namespace AnyParry
 
         public static class PatchDude
         {
-            [HarmonyPatch(typeof(TimeController), "ParryFlash")]
+            [HarmonyPatch(typeof(TimeController), nameof(TimeController.ParryFlash))]
             [HarmonyPostfix]
             private static void SetParryImage(TimeController __instance)
             {

@@ -10,6 +10,6 @@ namespace AnyParry
     {
         public const string Name = "AnyParry";
         public const string GUID = "ironfarm.uk.anyparry";
-        public const string Version = "1.0.1";
+        public const string Version = "1.0.2";
     }
 }
