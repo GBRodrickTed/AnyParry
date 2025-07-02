@@ -8,17 +8,17 @@ using System.IO;
 using UnityEngine.Diagnostics;
 using System.Reflection;
 using HarmonyLib;
-/*using PluginConfig;
+using PluginConfig;
 using PluginConfig.API.Fields;
 using PluginConfig.API;
-using PluginConfig.API.Functionals;*/
+using PluginConfig.API.Functionals;
 using UnityEngine.EventSystems;
 using System.Xml.Serialization;
 //using static AnyParry.ConfigManager;
 
 namespace AnyParry
 {
-    /*public static class ConfigManager
+    public static class ConfigManager
     {
         private static PluginConfigurator config;
         private static ButtonField openParryFolder;
@@ -51,7 +51,7 @@ namespace AnyParry
         {
             Application.OpenURL(Path.Combine(workingDirectory, "ParryImages"));
         }
-    }*/
+    }
     [BepInPlugin(PluginInfo.GUID, PluginInfo.Name, PluginInfo.Version)]
     public class Plugin : BaseUnityPlugin
     {
@@ -62,7 +62,7 @@ namespace AnyParry
         public static FilterMode filterType = FilterMode.Point;
         public void Start()
         {
-            //ConfigManager.Setup();
+            ConfigManager.Setup();
             UpdateParryList();
             harm = new Harmony(PluginInfo.GUID);
             harm.PatchAll(typeof(PatchDude));

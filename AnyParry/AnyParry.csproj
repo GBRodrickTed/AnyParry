@@ -46,6 +46,9 @@
     <Reference Include="BepInEx">
       <HintPath>libs\BepinEx\BepInEx.dll</HintPath>
     </Reference>
+    <Reference Include="PluginConfigurator">
+      <HintPath>..\..\_Common Libraries_\Others\PluginConfigurator.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

@@ -138,3 +138,5 @@ C:\Users\theca\Documents\Coding Stuff\CVS Deluxe\VS\United Kingdom\AnyParry\AnyP
 C:\Users\theca\Documents\Coding Stuff\CVS Deluxe\VS\United Kingdom\AnyParry\AnyParry\bin\Debug\UnityEngine.VirtualTexturingModule.dll
 C:\Users\theca\Documents\Coding Stuff\CVS Deluxe\VS\United Kingdom\AnyParry\AnyParry\bin\Debug\netstandard.dll
 C:\Users\theca\Documents\Coding Stuff\CVS Deluxe\VS\United Kingdom\AnyParry\AnyParry\bin\Debug\TriInspector.dll
+C:\Users\theca\Documents\Coding Stuff\CVS Deluxe\VS\United Kingdom\AnyParry\AnyParry\bin\Debug\PluginConfigurator.dll
+C:\Users\theca\Documents\Coding Stuff\CVS Deluxe\VS\United Kingdom\AnyParry\AnyParry\bin\Debug\PluginConfiguratorComponents.dll
